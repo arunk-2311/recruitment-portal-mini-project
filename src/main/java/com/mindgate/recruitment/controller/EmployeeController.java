@@ -18,12 +18,12 @@ import com.mindgate.recruitment.service.EmployeeService;
 public class EmployeeController {
 
 	@Autowired
-	public EmployeeService service;
+	public EmployeeService employeeService;
 
 	// find all employees
 	@GetMapping(path = "/employees")
 	public ResponseEntity<Object> fetchProfiles() {
-		List<Employee> list = service.fetchAllEmployees();
+		List<Employee> list = employeeService.fetchAllEmployees();
 		return ResponseEntity.status(200).body(list);
 	}
 
