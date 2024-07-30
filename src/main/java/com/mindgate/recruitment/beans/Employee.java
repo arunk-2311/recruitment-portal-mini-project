@@ -5,13 +5,16 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "employee_view")
 public class Employee {
 	@Id
 	@Column(name = "emp_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int empId;
+	
 	private String name;
 	
 	@Column(name = "role_id")
