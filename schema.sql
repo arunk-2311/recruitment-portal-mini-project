@@ -77,7 +77,7 @@ CREATE TABLE job_request(
     tl_id NUMBER(10),
     filled NUMBER(10),
     pending NUMBER(10),
-    created_date DATE DEFAULT SYSDATE NOT NULL,
+    created_date DATE DEFAULT SYSDATE,
     CONSTRAINT job_request_role_id_fk FOREIGN KEY(role_id) REFERENCES role(role_id),
     CONSTRAINT job_request_tl_id_fk FOREIGN KEY(tl_id) REFERENCES employee(emp_id),
     CONSTRAINT job_request_skill_id_fk1 FOREIGN KEY(skill1_id) REFERENCES skill(skill_id),
@@ -91,7 +91,7 @@ VALUES
 ('passionate and experienced', 1, 5, 1, 2, 3, 2);
 
 ALTER TABLE job_request ADD job_req_lvl NUMBER DEFAULT 0;
-
+ALTER TABLE job_request modify (created_date NULL);
 SELECT * FROM job_request;
 
 DROP TABLE job_request;
@@ -127,9 +127,15 @@ DROP TABLE candidate;
 DESC candidate;
 
 
----------------------------------------------------------
+---------------------------------------------------------------------------------
 -- Employee view --
 CREATE VIEW employee_view AS
 SELECT emp_id,name,role_id,phone_no,email, skill1_id, skill2_id, skill3_id, status
 FROM employee;
 drop view employee_view;
+----------------------------------------------------------------------------------
+-- Job Request View-----
+CREATE VIEW job_request_view AS
+SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
+FROM job_request;
+drop view job_request_view;
