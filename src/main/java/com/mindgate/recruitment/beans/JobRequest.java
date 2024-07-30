@@ -27,6 +27,7 @@ public class JobRequest {
 	@CreatedDate
 	private Date createdDate;
 	
+	//This is the role ID for Job Request
 	@Column(name = "role_id")
 	private int roleId;
 	
