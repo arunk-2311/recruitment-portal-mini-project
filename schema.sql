@@ -91,7 +91,10 @@ VALUES
 ('passionate and experienced', 1, 5, 1, 2, 3, 2);
 
 ALTER TABLE job_request ADD job_req_lvl NUMBER DEFAULT 0;
+
+-- TO BE CHANGED IN FUTURE
 ALTER TABLE job_request modify (created_date NULL);
+
 SELECT * FROM job_request;
 
 DROP TABLE job_request;
