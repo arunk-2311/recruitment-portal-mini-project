@@ -130,6 +130,7 @@ DESC candidate;
 ---------------------------------------------------------
 -- Employee view --
 CREATE VIEW employee_view AS
-SELECT emp_id,name,role_id,phone_no,email, skill1_id, skill2_id, skill3_id, status
+SELECT emp_id, name, role_id, phone_no, email, skill1_id, skill2_id, skill3_id, status
 FROM employee;
-drop view employee_view;
+
+DROP VIEW employee_view;
