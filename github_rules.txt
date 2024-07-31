@@ -1,0 +1,41 @@
+
+****FIRST TIMERS****
+1) Create a new workspace
+2) Window -> Show view -> Others -> git -> git workspaces
+3) Clone new repository using github URL, username and access key generated from github, select all the branches to import, finish
+4) Right click the workspace under github repo : Import projects -> finish
+
+
+**** How to add your code to github ****
+1) You will see the project on project explorer.
+2) Right click that, go to team -> switch to -> others -> new branch -> give new branch name, make sure checkout option is ticked off.
+
+3) Now you have a new branch (i.e version of main that won't affect the main directly but can be used in future to make changes to main)
+
+Note : Don't make changes to the existing code from main branch, only add new code.
+
+4) Once you add to code in pieces, say, you have created a new class,
+	right click the project -> team -> commit
+
+Note :
+	Staged changes : These are the changes you have made and are about to make in this commit
+	Unstaged changes : These are the changes you have made and won't commit them in the current commit
+
+5) Stage your changes by selected them and clicking +,- signs as suited.
+6) Then click commit
+
+Note : Before you push your code, always make sure if you have the updated branch,  i.e "performed pull" (see below section) 
+
+7) How to push the code:
+	* Right click the project -> team -> push to --branch name--
+	* preview -> push
+8) Review the pushed code in github.
+
+
+**** How to pull other's code from github *****
+
+1) Your peer has pushed his changes to the current branch you both are working on,
+	** You both have made changes to the branch where none of your code is in conflict**
+2) Now in order to update your local repository(your local project) with the changes your peer made, 
+	right click the project -> team -> pull.. -> select the branch ref (i.e choose the branch you want to pull the code from, you can be in branch v01 and can still pull master, if there is no conflict in code) -> pull
+3) You will now have all your peer's changes
