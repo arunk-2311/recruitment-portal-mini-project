@@ -28,9 +28,21 @@ public class PMController {
 	private PMService pmService;
 
 	// get all active job requests that have to be attended by PM
-	@GetMapping(path = "/activejobRequests")
+	@GetMapping(path = "/activeJobRequests")
 	public ResponseEntity<Object> fetchAllActiveJobRequests() {
 		return ResponseEntity.status(200).body(pmService.fetchAllActiveJobRequests());
+	}
+	
+	// get all active job requests that have to be attended by PM
+	@GetMapping(path = "/pendingJobRequests")
+	public ResponseEntity<Object> fetchAllPendingJobRequests() {
+		return ResponseEntity.status(200).body(pmService.fetchAllPendingJobRequests());
+	}
+
+	// get all active job requests that have to be attended by PM
+	@GetMapping(path = "/closedJobRequests")
+	public ResponseEntity<Object> fetchAllClosedJobRequests() {
+		return ResponseEntity.status(200).body(pmService.fetchAllClosedJobRequests());
 	}
 
 	// creates a job request

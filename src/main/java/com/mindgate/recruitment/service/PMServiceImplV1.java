@@ -1,6 +1,5 @@
 package com.mindgate.recruitment.service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +25,24 @@ public class PMServiceImplV1 implements PMService {
 		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
 		List<JobRequest> activeJobRequests = allJobRequests.stream()
 	            .filter(jobRequest -> jobRequest.getJrLevel() == 0)
+	            .collect(Collectors.toList());
+		return activeJobRequests;
+	}
+	
+	@Override
+	public List<JobRequest> fetchAllPendingJobRequests() {
+		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
+		List<JobRequest> activeJobRequests = allJobRequests.stream()
+	            .filter(jobRequest -> jobRequest.getJrLevel() == 1)
+	            .collect(Collectors.toList());
+		return activeJobRequests;
+	}
+	
+	@Override
+	public List<JobRequest> fetchAllClosedJobRequests() {
+		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
+		List<JobRequest> activeJobRequests = allJobRequests.stream()
+	            .filter(jobRequest -> jobRequest.getJrLevel() == 2)
 	            .collect(Collectors.toList());
 		return activeJobRequests;
 	}
