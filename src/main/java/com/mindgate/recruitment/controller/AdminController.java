@@ -13,7 +13,7 @@ import com.mindgate.recruitment.service.EmployeeServiceImplV1;
 
 @CrossOrigin(origins="*")
 @RestController
-@RequestMapping(path="/employee/login/admin")
+@RequestMapping(path="/api/admin")
 public class AdminController {
 	
 	@Autowired
