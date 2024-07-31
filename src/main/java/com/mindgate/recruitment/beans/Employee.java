@@ -22,7 +22,8 @@ public class Employee {
 	
 	private String email;
 	private String status;
-	
+
+	// Skill ids can be null
 	@Column(name = "skill1_id")
 	private Integer skill1Id;
 	
@@ -99,7 +100,7 @@ public class Employee {
 	public Integer getSkill3Id() {
 		return skill3Id;
 	}
-
+	
 	public void setSkill3Id(Integer skill3Id) {
 		this.skill3Id = skill3Id;
 	}
