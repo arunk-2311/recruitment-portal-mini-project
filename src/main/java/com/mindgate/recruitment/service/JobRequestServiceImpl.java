@@ -3,6 +3,7 @@ package com.mindgate.recruitment.service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,13 +22,19 @@ public class JobRequestServiceImpl implements JobRequestService {
 	private JobRequestRepository jobRequestRepository;
 
 	// save method that takes profile
+	@Override
 	public JobRequest store(JobRequest jobRequest) {
 		return jobRequestRepository.save(jobRequest);
 	}
 
+	@Override
 	public List<JobRequest> findByTeamLeaderId(int tlId) {
-		List<Integer> listof_tlId = Collections.singletonList(tlId);
-		return jobRequestRepository.findAllById(listof_tlId);
+		List<Integer> listOfTlId = Collections.singletonList(tlId);
+		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
+		List<JobRequest> specificTlJobRequests = allJobRequests.stream()
+	            .filter(jobRequest -> jobRequest.getTlId() == tlId)
+	            .collect(Collectors.toList());
+		return specificTlJobRequests;
 	}
 
 	@Override
