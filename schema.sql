@@ -142,3 +142,9 @@ CREATE VIEW job_request_view AS
 SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
 FROM job_request;
 drop view job_request_view;
+
+----------------------------------------------------------------------------------
+--Insert interviewer as role in Role table--
+INSERT INTO role(role)
+VALUES
+('Interviewer');
