@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mindgate.recruitment.beans.JobRequest;
 import com.mindgate.recruitment.exceptions.JobFillOverflowException;
+import com.mindgate.recruitment.exceptions.JobRequestInvalidLevelException;
 import com.mindgate.recruitment.exceptions.JobRequestNotFoundException;
 import com.mindgate.recruitment.repository.JobRequestRepository;
 
@@ -38,27 +39,49 @@ public class JobRequestServiceImpl implements JobRequestService {
 	}
 
 	@Override
-	public JobRequest UpdateJobRequestFilled(int requestId, int fillCount) throws JobFillOverflowException {
-		
+	public JobRequest updateJobRequestFilled(int requestId, int fillCount) throws JobFillOverflowException {
+
 		try {
 			JobRequest jobRequest = this.findByJobRequestId(requestId);
-			
+
 			int filled = jobRequest.getFilled();
 			int vacancies = jobRequest.getVacancies();
-			
-			if(filled + fillCount <= vacancies) {
+
+			if (filled + fillCount <= vacancies) {
 				jobRequest.setFilled(filled + fillCount);
 				jobRequest.setPending(vacancies - (filled + fillCount));
-			}else {
+			} else {
 				throw new JobFillOverflowException("Job Request Fill exceeds vacancies!");
 			}
-			
+
 			JobRequest updatedJobRequest = jobRequestRepository.save(jobRequest);
 			return updatedJobRequest;
 		} catch (JobRequestNotFoundException e) {
 			throw new JobFillOverflowException(e.getMessage());
 		}
-		
+
+	}
+
+	@Override
+	public JobRequest updateJobRequestLevel(int requestId, int level) throws JobRequestInvalidLevelException {
+		// TODO Auto-generated method stub
+		try {
+			JobRequest jobRequest = this.findByJobRequestId(requestId);
+
+			int requestlvl = jobRequest.getJrLevel();
+
+			if (level > requestlvl && level < 3) {
+				jobRequest.setJrLevel(level);
+			} else {
+				throw new JobRequestInvalidLevelException("Invalid job request level!");
+			}
+
+			JobRequest updatedJobRequest = jobRequestRepository.save(jobRequest);
+			return updatedJobRequest;
+
+		} catch (JobRequestNotFoundException e) {
+			throw new JobRequestInvalidLevelException(e.getMessage());
+		}
 	}
 
 }
