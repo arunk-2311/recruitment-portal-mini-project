@@ -14,7 +14,7 @@ public class PMServiceImplV1 implements PMService{
 	public JobRequest fillJobRequest(int requestId, int num){
 		
 		try {
-			return jobRequestService.UpdateJobRequestFilled(requestId, num);
+			return jobRequestService.updateJobRequestFilled(requestId, num);
 		} catch (JobFillOverflowException e) {
 			e.printStackTrace();
 			System.out.println(e.getMessage());
