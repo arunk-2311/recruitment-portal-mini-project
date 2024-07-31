@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.mindgate.recruitment.beans.JobRequest;
 import com.mindgate.recruitment.exceptions.JobFillOverflowException;
+import com.mindgate.recruitment.exceptions.JobRequestInvalidLevelException;
 import com.mindgate.recruitment.exceptions.JobRequestNotFoundException;
+import com.mindgate.recruitment.exceptions.JobRequestNotFulFilledException;
 
 
 public interface JobRequestService {
@@ -18,5 +20,11 @@ public interface JobRequestService {
 	JobRequest findByJobRequestId(int requestId) throws JobRequestNotFoundException;
 	
 	//method that updates job request's filled field
-	JobRequest UpdateJobRequestFilled(int requestId, int fillCount) throws JobFillOverflowException;
+	JobRequest updateJobRequestFilled(int requestId, int fillCount) throws JobFillOverflowException;
+	
+	//method that updates the job request level
+	JobRequest updateJobRequestLevel(int requestId, int level) throws JobRequestInvalidLevelException;
+	
+	//method that checks if the job request is fulfilled or not
+	JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException;
 }
