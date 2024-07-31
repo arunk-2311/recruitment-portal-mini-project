@@ -114,7 +114,8 @@ public class JobRequestServiceImpl implements JobRequestService {
 				throw new JobRequestNotFulFilledException("Job vacancies are not filled yet!");
 			}
 			
-			return jobRequest;
+			JobRequest updatedJobRequest = jobRequestRepository.save(jobRequest);
+			return updatedJobRequest;
 
 		} catch (JobRequestNotFoundException e) {
 			// TODO Auto-generated catch block
