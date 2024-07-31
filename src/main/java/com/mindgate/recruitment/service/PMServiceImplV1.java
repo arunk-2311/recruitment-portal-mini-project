@@ -54,7 +54,7 @@ public class PMServiceImplV1 implements PMService {
 			JobRequest j = jobRequestService.updateJobRequestFilled(requestId, num);
 
 			if (j.getPending() == 0) {
-				jobRequestService.closeJobRequest(requestId);
+				j = jobRequestService.closeJobRequest(requestId);
 			}
 
 			return j;
