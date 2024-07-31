@@ -29,7 +29,6 @@ public class JobRequestServiceImpl implements JobRequestService {
 
 	@Override
 	public List<JobRequest> findByTeamLeaderId(int tlId) {
-		List<Integer> listOfTlId = Collections.singletonList(tlId);
 		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
 		List<JobRequest> specificTlJobRequests = allJobRequests.stream()
 	            .filter(jobRequest -> jobRequest.getTlId() == tlId)
