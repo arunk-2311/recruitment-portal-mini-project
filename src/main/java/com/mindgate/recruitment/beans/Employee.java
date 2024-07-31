@@ -23,7 +23,7 @@ public class Employee {
 	private String email;
 	private String status;
 
-	// Skill_ids can be null, but better to have atleast one skill
+	// Skills can be null, but better to have atleast one skill
 	@Column(name = "skill1_id")
 	private Integer skill1Id;
 	
