@@ -39,7 +39,7 @@ public class LoginController {
 				Role role=roleService.employeeRole(log);
 				return ResponseEntity.status(200).body(new LoginReturnResult(true, role.getEmpRole()));
 			} else
-				return ResponseEntity.status(401).body(new LoginReturnResult(false, "Password Incorrect"));
+				return ResponseEntity.status(401).body("Password Incorrect");
 		} catch (LoginNotFoundException e) {
 			return ResponseEntity.status(401).body(e.getMessage());
 		}
