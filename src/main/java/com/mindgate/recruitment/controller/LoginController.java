@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mindgate.recruitment.LoginReturnResult;
 import com.mindgate.recruitment.beans.Login;
+import com.mindgate.recruitment.beans.LoginReturnResult;
 import com.mindgate.recruitment.beans.Role;
 import com.mindgate.recruitment.exceptions.LoginNotFoundException;
 import com.mindgate.recruitment.exceptions.RoleNotFoundException;

@@ -1,4 +1,4 @@
-package com.mindgate.recruitment;
+package com.mindgate.recruitment.beans;
 
 public class LoginReturnResult {
 	public boolean result = true;
