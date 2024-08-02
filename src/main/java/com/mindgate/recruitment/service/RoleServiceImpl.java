@@ -1,5 +1,6 @@
 package com.mindgate.recruitment.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,5 +20,16 @@ public class RoleServiceImpl implements RoleService {
 	public Role employeeRole(Login loginInfo) throws RoleNotFoundException {
 		Optional<Role> roleInfo = roleRepository.findById(loginInfo.getRoleId());
 		return roleInfo.orElseThrow(() -> new RoleNotFoundException("Role Id " + loginInfo.getRoleId() + " not found"));
+	}
+	
+	@Override
+	public List<Role> getAllRoles() {
+		return roleRepository.findAll();
+	}
+	
+	@Override
+	public Role getRoleById(int id) throws RoleNotFoundException{
+		Optional<Role> optional = roleRepository.findById(id);
+		return optional.orElseThrow(() -> new RoleNotFoundException("Role Id " + id + " not found"));
 	}
 }
