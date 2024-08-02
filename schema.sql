@@ -1,9 +1,9 @@
 -- DROP COMMANDS
+DROP TABLE candidate;
 DROP VIEW job_request_view;
 DROP TABLE job_request;
 DROP VIEW employee_view;
 DROP TABLE employee;
-DROP TABLE candidate;
 DROP TABLE role;
 DROP TABLE skill;
 -------------------------------------------------------------------------------------------------
@@ -15,6 +15,7 @@ SELECT * FROM job_request;
 SELECT * FROM job_request_view;
 SELECT * FROM candidate;
 SELECT * FROM employee_view;
+SELECT * FROM login_view;
 
 -------------------------------------------------------------------------------------------------
 CREATE TABLE role(
@@ -120,9 +121,14 @@ ALTER TABLE employee MODIFY email UNIQUE NOT NULL;
 
 DESC employee;
 
+
 INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id)
 VALUES 
 ('gold', 1, 9467348398, 'gold@golddigger.com', 'inactive', 1);
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id)
+VALUES 
+('kim', 1, 967348398, 'kim@golddigger.com', 'inactive', 1);
 
 INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill2_id)
 VALUES 
@@ -130,10 +136,10 @@ VALUES
 
 INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill3_id)
 VALUES 
+
 ('arun', 1, 9354516070, 'arun@golddigger.com', 2, 4);
 
 SELECT * FROM employee;
-
 -------------------------------------------------------------------------------------------------
 
 CREATE TABLE job_request(
@@ -159,6 +165,10 @@ CREATE TABLE job_request(
 INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
 VALUES
 ('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('confident', 1, 7, 1, 2, 3, 4);
 
 ALTER TABLE job_request ADD job_req_lvl NUMBER DEFAULT 0;
 
@@ -209,5 +219,3 @@ FROM job_request;
 CREATE VIEW login_view AS
 SELECT emp_id,password,role_id,phone_no,email
 FROM employee;
-SELECT * FROM login_view;
---------------------------------------------------------------------------
