@@ -142,3 +142,12 @@ CREATE VIEW job_request_view AS
 SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
 FROM job_request;
 drop view job_request_view;
+
+-----------------------------------------------------------
+-----login View-----
+CREATE VIEW login_view AS
+SELECT emp_id,password,role_id,phone_no,email
+FROM employee;
+SELECT * FROM login_view;
+DROP VIEW login_view;
+--------------------------------------------------------------------------
