@@ -25,4 +25,7 @@ public class EmployeeServiceImplV1 implements EmployeeService{
         employee.setStatus(status);
         return employeeRepository.save(employee);
 	}
+	public Employee create(Employee employee){
+		return 	employeeRepository.save(employee);
+	}
 }

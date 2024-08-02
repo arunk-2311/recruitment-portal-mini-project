@@ -15,6 +15,7 @@ SELECT * FROM job_request;
 SELECT * FROM job_request_view;
 SELECT * FROM candidate;
 SELECT * FROM employee_view;
+SELECT * FROM login_view;
 
 -------------------------------------------------------------------------------------------------
 CREATE TABLE role(
@@ -135,10 +136,10 @@ VALUES
 
 INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill3_id)
 VALUES 
-('arun', 1, 9344516070, 'arunworkacc@golddigger.com', 2, 4);
+
+('arun', 1, 9354516070, 'arun@golddigger.com', 2, 4);
 
 SELECT * FROM employee;
-
 -------------------------------------------------------------------------------------------------
 
 CREATE TABLE job_request(
@@ -213,9 +214,8 @@ FROM employee;
 CREATE VIEW job_request_view AS
 SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
 FROM job_request;
-
+-----------------------------------------------------------
 -----login View-----
 CREATE VIEW login_view AS
 SELECT emp_id,password,role_id,phone_no,email
 FROM employee;
-SELECT * FROM login_view;
