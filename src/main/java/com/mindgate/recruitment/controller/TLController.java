@@ -23,7 +23,7 @@ import com.mindgate.recruitment.service.JobRequestService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/api/tl")
 public class TLController {
 
 	@Autowired
