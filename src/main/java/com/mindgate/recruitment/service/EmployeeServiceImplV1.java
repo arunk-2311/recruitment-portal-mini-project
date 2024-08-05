@@ -19,12 +19,14 @@ public class EmployeeServiceImplV1 implements EmployeeService{
 	public List<Employee> fetchAllEmployees() {
 		return employeeRepository.findAll();
 	}
+	@Override
 	public Employee updateEmployeeStatus(int id, String status){
 	    Optional<Employee> optional = employeeRepository.findById(id);
         Employee employee = optional.get();
         employee.setStatus(status);
         return employeeRepository.save(employee);
 	}
+	@Override
 	public Employee create(Employee employee){
 		return 	employeeRepository.save(employee);
 	}
