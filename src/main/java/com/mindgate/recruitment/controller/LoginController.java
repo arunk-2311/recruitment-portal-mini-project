@@ -32,12 +32,12 @@ public class LoginController {
 		try {
 
 			if (login.getEmployeeId() == 1001 && login.getPassword().equals("Admin@123")) {
-				return ResponseEntity.status(200).body(new LoginReturnResult(true, "admin"));
+				return ResponseEntity.status(200).body(new LoginReturnResult(true, "admin",1001));
 			}
 			Login log = loginService.employeeLogin(login);
 			if (log.getPassword().equals(login.getPassword())) {
 				Role role=roleService.employeeRole(log);
-				return ResponseEntity.status(200).body(new LoginReturnResult(true, role.getEmpRole()));
+				return ResponseEntity.status(200).body(new LoginReturnResult(true, role.getEmpRole(), log.getEmployeeId()));
 			} else
 				return ResponseEntity.status(401).body("Password Incorrect");
 		} catch (LoginNotFoundException e) {
