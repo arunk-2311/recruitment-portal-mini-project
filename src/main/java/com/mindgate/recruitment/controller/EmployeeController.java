@@ -54,4 +54,10 @@ public class EmployeeController {
 	public ResponseEntity<Object> filterInactiveEmployeesByRoleId(@PathVariable("roleId") int roleId) {
 		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByRoleId(roleId));
 	}
+	
+	@GetMapping(path="/inactive/filter/{roleId}/{skillId}")
+	public ResponseEntity<Object> filterInactiveEmployeesByRoleIdAndSkillId(@PathVariable("roleId") int roleId, @PathVariable("skillId") int skillId){
+		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByRoleIdAndSkillId(roleId, skillId));
+	}
+	
 }

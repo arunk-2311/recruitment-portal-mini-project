@@ -13,4 +13,5 @@ public interface EmployeeService {
 	List<Employee> fetchAllInactiveEmployess();
 	List<Employee> filterInactiveEmployeesBySkillId(int skillId);
 	List<Employee> filterInactiveEmployeesByRoleId(int roleId);
+	List<Employee> filterInactiveEmployeesByRoleIdAndSkillId(int skillId, int roleId);
 }

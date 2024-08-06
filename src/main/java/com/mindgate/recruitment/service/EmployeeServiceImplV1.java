@@ -56,4 +56,11 @@ public class EmployeeServiceImplV1 implements EmployeeService {
 		return filteredEmployees;
 	}
 
+	@Override
+	public List<Employee> filterInactiveEmployeesByRoleIdAndSkillId(int roleId, int skillId) {
+		List<Employee> skillFilteredEmployees = this.filterInactiveEmployeesBySkillId(skillId);
+		List<Employee> filteredEmployees = skillFilteredEmployees.stream().filter(emp -> emp.getRoleId() == roleId).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+
 }
