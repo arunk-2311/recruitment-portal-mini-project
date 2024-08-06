@@ -15,7 +15,6 @@ SELECT * FROM job_request;
 SELECT * FROM job_request_view;
 SELECT * FROM candidate;
 SELECT * FROM employee_view;
-SELECT * FROM login_view;
 
 -------------------------------------------------------------------------------------------------
 CREATE TABLE role(
@@ -122,24 +121,48 @@ ALTER TABLE employee MODIFY email UNIQUE NOT NULL;
 DESC employee;
 
 
-INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id)
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
 VALUES 
-('gold', 1, 9467348398, 'gold@golddigger.com', 'inactive', 1);
+('gold', 1, 9467348398, 'gold@golddigger.com', 'inactive', 4, 7, 6);
 
-INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id)
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
 VALUES 
-('kim', 1, 967348398, 'kim@golddigger.com', 'inactive', 1);
+('jim', 2, 967348398, 'kim@golddigger.com', 'inactive', 1, 2, 3);
 
-INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill2_id)
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
 VALUES 
-('win', 1, 9446678398, 'win@golddigger.com', 1, 2);
+('michael', 3, 967348398, 'kim@golddigger.com', 'inactive', 2, 3, 4);
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
+VALUES 
+('dwight', 4, 967348398, 'kim@golddigger.com', 'inactive', 5, 3, 2);
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
+VALUES 
+('angela', 5, 967348398, 'kime@golddigger.com', 'inactive', 1,6,7 );
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
+VALUES 
+('stanley', 6, 967348398, 'kimr@golddigger.com', 'inactive', 3, 5, 6);
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
+VALUES 
+('kevin', 7, 967348398, 'kimd@golddigger.com', 'inactive', 2, 3, 7);
+
+INSERT INTO employee(name, role_id, phone_no, email, status, skill1_id, skill2_id, skill3_id)
+VALUES 
+('toby', 2, 967348398, 'kimed@golddigger.com', 'inactive', 4, 3, 2);
+
+INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill2_id, skill3_id)
+VALUES 
+('oscar', 3, 9446678398, 'win@golddigger.com', 1, 2, 4);
 
 INSERT INTO employee(name, role_id, phone_no, email, skill1_id, skill3_id)
 VALUES 
-
-('arun', 1, 9354516070, 'arun@golddigger.com', 2, 4);
+('arun', 1, 9344516070, 'arunworkacc@golddigger.com', 2, 4, 5);
 
 SELECT * FROM employee;
+
 -------------------------------------------------------------------------------------------------
 
 CREATE TABLE job_request(
@@ -161,6 +184,34 @@ CREATE TABLE job_request(
     CONSTRAINT job_request_skill_id_fk3 FOREIGN KEY(skill3_id) REFERENCES skill(skill_id),
     CONSTRAINT job_request_vacancies_ck CHECK(filled + pending = no_of_vacancies)
 );
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
+
+INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
+VALUES
+('passionate and experienced', 1, 5, 1, 2, 3, 2);
 
 INSERT INTO job_request(description, role_id, no_of_vacancies, skill1_id, tl_id, filled, pending)
 VALUES
@@ -214,8 +265,3 @@ FROM employee;
 CREATE VIEW job_request_view AS
 SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
 FROM job_request;
------------------------------------------------------------
------login View-----
-CREATE VIEW login_view AS
-SELECT emp_id,password,role_id,phone_no,email
-FROM employee;
