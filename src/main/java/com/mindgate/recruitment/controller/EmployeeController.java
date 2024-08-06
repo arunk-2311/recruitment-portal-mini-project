@@ -30,16 +30,28 @@ public class EmployeeController {
 		List<Employee> list = employeeService.fetchAllEmployees();
 		return ResponseEntity.status(200).body(list);
 	}
-	
-	@GetMapping(path="/inactive")
+
+	@GetMapping(path = "/inactive")
 	public ResponseEntity<Object> fetchInactiveEmployees() {
 		List<Employee> empList = employeeService.fetchAllEmployees();
-		List<Employee> inactiveEmployees = empList.stream().filter((employee) -> "inactive".equalsIgnoreCase(employee.getStatus())).collect(Collectors.toList());
+		List<Employee> inactiveEmployees = empList.stream()
+				.filter((employee) -> "inactive".equalsIgnoreCase(employee.getStatus())).collect(Collectors.toList());
 		return ResponseEntity.status(200).body(inactiveEmployees);
 	}
-	
-	@PutMapping(path="/activate/{id}")
-	public ResponseEntity<Object> activateEmployeeStatus(@PathVariable("id") int id){
+
+	@PutMapping(path = "/activate/{id}")
+	public ResponseEntity<Object> activateEmployeeStatus(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(employeeService.updateEmployeeStatus(id, "active"));
+	}
+
+	//	For filtering workbench employees
+	@GetMapping(path="/inactive/filter/skill/{skillId}")
+	public ResponseEntity<Object> filterInactiveEmployeesBySkillId(@PathVariable("skillId") int skillId) {
+		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesBySkillId(skillId));
+	}
+	
+	@GetMapping(path="/inactive/filter/role/{roleId}")
+	public ResponseEntity<Object> filterInactiveEmployeesByRoleId(@PathVariable("roleId") int roleId) {
+		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByRoleId(roleId));
 	}
 }
