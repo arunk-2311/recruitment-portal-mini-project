@@ -60,4 +60,37 @@ public class EmployeeController {
 		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByRoleIdAndSkillId(roleId, skillId));
 	}
 	
+	/*
+	 * 1) Filter all employees by status
+	 * 2) "" by skillId
+	 * 3) "" by roleId
+	 * 4) "" by skillId and roleId
+	 * 5) Search Employees by name
+	 * */
+	
+	@GetMapping(path="/all/filter/{roleId}/{skillId}")
+	public ResponseEntity<Object> filterAllEmployeesByRoleIdAndSkillId(@PathVariable("roleId") int roleId, @PathVariable("skillId") int skillId){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByRoleIdAndSkillId(roleId, skillId));
+	}
+	
+	@GetMapping(path="/all/filter/role/{roleId}")
+	public ResponseEntity<Object> filterAllEmployeesByRoleId(@PathVariable("roleId") int roleId){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByRoleId(roleId));
+	}
+	
+	@GetMapping(path="/all/filter/skill/{skillId}")
+	public ResponseEntity<Object> filterAllEmployeesBySkillId(@PathVariable("skillId") int skillId){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesBySkillId(skillId));
+	}
+	
+	@GetMapping(path="/all/filter/status/{status}")
+	public ResponseEntity<Object> filterAllEmployeesByStatus(@PathVariable("status") String status){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByStatus(status));
+	}
+	
+	@GetMapping(path="/all/filter/name/{searchText}")
+	public ResponseEntity<Object> filterAllEmployeesBySearchText(@PathVariable("searchText") String searchText){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByName(searchText));
+	}
+	
 }
