@@ -73,7 +73,7 @@ public class EmployeeController {
 	 * 5) Search Employees by name
 	 * */
 	
-	@GetMapping(path="/all/filter/{roleId}/{skillId}")
+	@GetMapping(path="/all/filter/roleAndSkill/{roleId}/{skillId}")
 	public ResponseEntity<Object> filterAllEmployeesByRoleIdAndSkillId(@PathVariable("roleId") int roleId, @PathVariable("skillId") int skillId){
 		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByRoleIdAndSkillId(roleId, skillId));
 	}
@@ -96,6 +96,11 @@ public class EmployeeController {
 	@GetMapping(path="/all/filter/name/{searchText}")
 	public ResponseEntity<Object> filterAllEmployeesBySearchText(@PathVariable("searchText") String searchText){
 		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByName(searchText));
+	}
+	
+	@GetMapping(path="/all/filter/nameAndStatus/{searchText}/{status}")
+	public ResponseEntity<Object> filterAllEmployeesBySearchTextAndStatus(@PathVariable("searchText") String searchText, @PathVariable("status") String status){
+		return ResponseEntity.status(200).body(employeeService.filterAllEmployeesByNameAndStatus(searchText, status));
 	}
 	
 }

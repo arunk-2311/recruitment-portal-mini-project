@@ -14,6 +14,7 @@ public interface EmployeeService {
 	List<Employee> filterAllEmployeesByRoleIdAndSkillId(int roleId, int skillId);
 	List<Employee> filterAllEmployeesByStatus(String status);
 	List<Employee> filterAllEmployeesByName(String name);
+	List<Employee> filterAllEmployeesByNameAndStatus(String name, String status);
 	List<Employee> filterInactiveEmployeesBySkillId(int skillId);
 	List<Employee> filterInactiveEmployeesByRoleId(int roleId);
 	List<Employee> filterInactiveEmployeesByRoleIdAndSkillId(int roleId, int skillId);
