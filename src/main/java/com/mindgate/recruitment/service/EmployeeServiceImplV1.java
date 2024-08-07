@@ -63,4 +63,39 @@ public class EmployeeServiceImplV1 implements EmployeeService {
 		return filteredEmployees;
 	}
 
+	@Override
+	public List<Employee> filterAllEmployeesBySkillId(int skillId) {
+		List <Employee> allEmployees = this.fetchAllEmployees();
+		List <Employee> filteredEmployees = allEmployees.stream().filter(emp -> (emp.getSkill1Id() == skillId) || (emp.getSkill2Id() == skillId) || (emp.getSkill3Id() == skillId)).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+
+	@Override
+	public List<Employee> filterAllEmployeesByRoleId(int roleId) {
+		List<Employee> allEmployees = this.fetchAllEmployees();
+		List<Employee> filteredEmployees = allEmployees.stream().filter(emp -> emp.getRoleId() == roleId).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+
+	@Override
+	public List<Employee> filterAllEmployeesByRoleIdAndSkillId(int roleId, int skillId) {
+		List<Employee> skillFilteredEmployees = this.filterAllEmployeesBySkillId(skillId);
+		List<Employee> filteredEmployees = skillFilteredEmployees.stream().filter(emp -> emp.getRoleId() == roleId).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+
+	@Override
+	public List<Employee> filterAllEmployeesByStatus(String status) {
+		List<Employee> allEmployees = this.fetchAllEmployees();
+		List<Employee> filteredEmployees = allEmployees.stream().filter(emp -> emp.getStatus().equals(status)).collect(Collectors.toList());
+ 		return filteredEmployees;
+	}
+
+	@Override
+	public List<Employee> filterAllEmployeesByName(String name) {
+		List<Employee> allEmployees = this.fetchAllEmployees();
+		List<Employee> filteredEmployees = allEmployees.stream().filter(emp -> emp.searchMatchForName(name)).collect(Collectors.toList());
+ 		return filteredEmployees;
+	}
+
 }
