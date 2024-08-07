@@ -60,6 +60,11 @@ public class EmployeeController {
 		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByRoleIdAndSkillId(roleId, skillId));
 	}
 	
+	@GetMapping(path="/inactive/filter/name/{searchText}")
+	public ResponseEntity<Object> filterInactiveEmployeesBySearchText(@PathVariable("searchText") String searchText){
+		return ResponseEntity.status(200).body(employeeService.filterInactiveEmployeesByName(searchText));
+	}
+	
 	/*
 	 * 1) Filter all employees by status
 	 * 2) "" by skillId
