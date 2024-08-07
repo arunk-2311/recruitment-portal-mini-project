@@ -105,4 +105,11 @@ public class EmployeeServiceImplV1 implements EmployeeService {
 		return filteredEmployees;
 	}
 
+	@Override
+	public List<Employee> filterAllEmployeesByNameAndStatus(String name, String status) {
+		List<Employee> nameFilteredEmployees = this.filterAllEmployeesByName(name);
+		List<Employee> filteredEmployees = nameFilteredEmployees.stream().filter(emp -> emp.getStatus().equals(status)).collect(Collectors.toList());
+ 		return filteredEmployees;
+	}
+
 }
