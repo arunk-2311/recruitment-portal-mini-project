@@ -98,4 +98,11 @@ public class EmployeeServiceImplV1 implements EmployeeService {
  		return filteredEmployees;
 	}
 
+	@Override
+	public List<Employee> filterInactiveEmployeesByName(String name) {
+		List<Employee> inactiveEmployees = this.fetchAllInactiveEmployess();
+		List<Employee> filteredEmployees = inactiveEmployees.stream().filter(emp -> emp.searchMatchForName(name)).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+
 }
