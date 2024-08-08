@@ -41,7 +41,7 @@ public class HRController {
 		List<Candidate> allCandidates = candidateService.getAllCandidate();
 		List<Candidate> finalCandidatelist = allCandidates.stream()
 				.filter(candidates -> ("y".equals(candidates.getConfirmationStatus())
-						&& (candidates.getFinelSelection() == null)))
+						&& (candidates.getFinalSelection() == null)))
 				.collect(Collectors.toList());
 		return ResponseEntity.status(200).body(finalCandidatelist);
 	}
@@ -50,7 +50,7 @@ public class HRController {
 	public ResponseEntity<Object> listOfAllCandidates() throws CandidateNotFoundException {
 		List<Candidate> allCandidates = candidateService.getAllCandidate();
 		List<Candidate> finalCandidatelist = allCandidates.stream()
-				.filter(candidates -> (candidates.getFinelSelection() == null)).collect(Collectors.toList());
+				.filter(candidates -> (candidates.getFinalSelection() == null)).collect(Collectors.toList());
 		return ResponseEntity.status(200).body(finalCandidatelist);
 	}
 	

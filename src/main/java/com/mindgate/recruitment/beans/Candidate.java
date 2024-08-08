@@ -44,14 +44,14 @@ public class Candidate {
 	private String interviewMeetLink;
 	
 	@Column(name="final_selection")
-	private String finelSelection;
+	private String finalSelection;
 
-	public String getFinelSelection() {
-		return finelSelection;
+	public String getFinalSelection() {
+		return finalSelection;
 	}
 
-	public void setFinelSelection(String finelSelection) {
-		this.finelSelection = finelSelection;
+	public void setFinelSelection(String finalSelection) {
+		this.finalSelection = finalSelection;
 	}
 
 	public int getCandidateId() {
