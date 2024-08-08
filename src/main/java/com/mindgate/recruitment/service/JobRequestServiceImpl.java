@@ -124,5 +124,14 @@ public class JobRequestServiceImpl implements JobRequestService {
 		
 		return null;
 	}
+	
+	@Override
+	public List<JobRequest> fetchAllActiveJobRequestsHR() {
+		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
+		List<JobRequest> activeJobRequests = allJobRequests.stream()
+	            .filter(jobRequest -> jobRequest.getJrLevel() == 1)
+	            .collect(Collectors.toList());
+		return activeJobRequests;
+	}
 
 }

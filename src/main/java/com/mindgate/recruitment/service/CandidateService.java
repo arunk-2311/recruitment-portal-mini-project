@@ -14,5 +14,11 @@ public interface CandidateService {
 	Candidate saveCandidate(Candidate candidate);
 
 	void deleteCandidate(int candidateId);
+	
+	Candidate updateCandidateStatusFinal(int id, String status);
+	
+	Candidate updateCandidateStatusFirst(int id, String status);
+	
+	Candidate updateCandidateStatusThird(int id, String status);
 
 }
