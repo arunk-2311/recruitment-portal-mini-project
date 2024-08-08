@@ -104,4 +104,28 @@ public class Employee {
 		this.skill3Id = skill3Id;
 	}
 	
+	public boolean searchMatchForName(String searchText) {
+		String name = this.name;
+		
+		if(name.length() < searchText.length()) return false;
+		
+		int i = 0;
+		int j = 0;
+
+		int matchedLength = 0;
+		while(i < name.length()) {
+			if(name.charAt(i) == searchText.charAt(j)) {
+				i++;
+				j++;
+				matchedLength++;
+			}else {
+				i++;
+				j=0;
+			}
+			
+			if(matchedLength == searchText.length()) return true;
+		}
+		
+		return false;
+	}
 }
