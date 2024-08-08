@@ -28,12 +28,10 @@ public interface JobRequestService {
 	//method that checks if the job request is fulfilled or not
 	JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException;
 	
-<<<<<<< HEAD
 	//method to update the Description column in Job Request
 	JobRequest updateJobRequestDescription(int requestId, String description);
-=======
+
 	List<JobRequest> fetchAllActiveJobRequestsHR();
 	
 	JobRequest forceCloseJobRequest(int jrId) throws JobRequestNotFoundException;
->>>>>>> branch 'master' of https://github.com/arunk-2311/recruitment-portal-mini-project.git
 }
