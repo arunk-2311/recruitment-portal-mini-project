@@ -31,8 +31,7 @@ public class JobRequestServiceImpl implements JobRequestService {
 	public List<JobRequest> findByTeamLeaderId(int tlId) {
 		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
 		List<JobRequest> specificTlJobRequests = allJobRequests.stream()
-	            .filter(jobRequest -> jobRequest.getTlId() == tlId)
-	            .collect(Collectors.toList());
+				.filter(jobRequest -> jobRequest.getTlId() == tlId).collect(Collectors.toList());
 		return specificTlJobRequests;
 	}
 
@@ -59,7 +58,7 @@ public class JobRequestServiceImpl implements JobRequestService {
 			} else {
 				throw new JobFillOverflowException("Job Request Fill exceeds vacancies!");
 			}
-			
+
 			jobRequest.setPending(vacancies - (filled + fillCount));
 
 			JobRequest updatedJobRequest = jobRequestRepository.save(jobRequest);
@@ -91,29 +90,29 @@ public class JobRequestServiceImpl implements JobRequestService {
 			throw new JobRequestInvalidLevelException(e.getMessage());
 		}
 	}
-	
+
 	@Override
 	public JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException {
-		
+
 		// TODO Auto-generated method stub
 		try {
 			JobRequest jobRequest = this.findByJobRequestId(requestId);
-			
+
 			int requestlvl = jobRequest.getJrLevel();
-			
-			if(requestlvl == 2) {
+
+			if (requestlvl == 2) {
 				throw new JobRequestNotFulFilledException("Job request already fulfilled!");
 			}
-			
+
 			int pending = jobRequest.getPending();
-			
-			if(pending == 0) {
+
+			if (pending == 0) {
 				// fulfilled
 				jobRequest.setJrLevel(2);
-			}else {
+			} else {
 				throw new JobRequestNotFulFilledException("Job vacancies are not filled yet!");
 			}
-			
+
 			JobRequest updatedJobRequest = jobRequestRepository.save(jobRequest);
 			return updatedJobRequest;
 
@@ -121,17 +120,37 @@ public class JobRequestServiceImpl implements JobRequestService {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-	
+
 	@Override
 	public List<JobRequest> fetchAllActiveJobRequestsHR() {
 		List<JobRequest> allJobRequests = jobRequestRepository.findAll();
-		List<JobRequest> activeJobRequests = allJobRequests.stream()
-	            .filter(jobRequest -> jobRequest.getJrLevel() == 1)
-	            .collect(Collectors.toList());
+		List<JobRequest> activeJobRequests = allJobRequests.stream().filter(jobRequest -> jobRequest.getJrLevel() == 1)
+				.collect(Collectors.toList());
 		return activeJobRequests;
+	}
+
+	@Override
+	public JobRequest forceCloseJobRequest(int jrId) throws JobRequestNotFoundException{
+		Optional<JobRequest> optional = jobRequestRepository.findById(jrId);
+		
+		if (optional.isPresent()) {
+			JobRequest jobRequest = optional.get();
+			
+			if(jobRequest.getJrLevel() == 2) return jobRequest;
+
+			//Force closing of JR
+			jobRequest.setJrLevel(2);
+			jobRequestRepository.save(jobRequest);
+		}else {
+			throw new JobRequestNotFoundException("Job request with id " + jrId + " not found");
+		}
+		
+		Optional<JobRequest> updatedJobRequest = jobRequestRepository.findById(jrId);
+		
+		return updatedJobRequest.get();
 	}
 
 }
