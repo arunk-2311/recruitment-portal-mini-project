@@ -34,4 +34,27 @@ public class CandidateServiceImpl implements CandidateService {
 	public void deleteCandidate(int candidateId) {
 		candidateRepository.deleteById(candidateId);
 	}
+	
+	@Override
+	public Candidate updateCandidateStatusFinal(int id, String status){
+	    Optional<Candidate> optional = candidateRepository.findById(id);
+        Candidate candidate = optional.get();
+        candidate.setFinelSelection(status);
+        return candidateRepository.save(candidate);
+	}
+	@Override
+	public Candidate updateCandidateStatusFirst(int id, String status){
+	    Optional<Candidate> optional = candidateRepository.findById(id);
+        Candidate candidate = optional.get();
+        candidate.setSelectedForInterview(status);
+        return candidateRepository.save(candidate);
+	}
+	@Override
+	public Candidate updateCandidateStatusThird(int id, String status){
+	    Optional<Candidate> optional = candidateRepository.findById(id);
+        Candidate candidate = optional.get();
+        candidate.setConfirmationStatus(status);
+        return candidateRepository.save(candidate);
+	}
+
 }
