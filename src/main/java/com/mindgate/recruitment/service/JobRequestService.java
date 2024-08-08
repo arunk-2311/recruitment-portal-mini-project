@@ -29,4 +29,6 @@ public interface JobRequestService {
 	JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException;
 	
 	List<JobRequest> fetchAllActiveJobRequestsHR();
+	
+	JobRequest forceCloseJobRequest(int jrId) throws JobRequestNotFoundException;
 }

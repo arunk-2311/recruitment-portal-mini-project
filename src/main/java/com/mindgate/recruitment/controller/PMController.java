@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindgate.recruitment.beans.JobRequest;
 import com.mindgate.recruitment.exceptions.JobFillOverflowException;
 import com.mindgate.recruitment.exceptions.JobRequestInvalidLevelException;
+import com.mindgate.recruitment.exceptions.JobRequestNotFoundException;
+import com.mindgate.recruitment.exceptions.JobRequestNotFulFilledException;
 import com.mindgate.recruitment.service.JobRequestService;
 import com.mindgate.recruitment.service.PMService;
 
@@ -67,6 +69,17 @@ public class PMController {
 			// TODO Auto-generated catch block
 			return ResponseEntity.status(404).body(e.getMessage());
 		}
+	}
+	
+	@PutMapping(path = "/forceCloseReq/{jrId}")
+	public ResponseEntity<Object> forceCloseReq(@PathVariable("jrId") int jrId) {
+				try {
+					JobRequest j = jobRequestService.forceCloseJobRequest(jrId);
+					return ResponseEntity.status(200).body(j);
+				} catch (JobRequestNotFoundException e) {
+					e.printStackTrace();
+					return ResponseEntity.status(404).body(e.getMessage());
+				}
 	}
 
 }
