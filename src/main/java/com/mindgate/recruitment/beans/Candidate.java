@@ -37,11 +37,22 @@ public class Candidate {
 	@Column(name = "confirmation_status")
 	private String confirmationStatus;
 
-	@Column(name = "request_id")
-	private int requestId;
+//	@Column(name = "request_id")
+//	private int requestId;
 	
 	@Column(name = "interview_meet_link")
 	private String interviewMeetLink;
+	
+	@Column(name="final_selection")
+	private String finelSelection;
+
+	public String getFinelSelection() {
+		return finelSelection;
+	}
+
+	public void setFinelSelection(String finelSelection) {
+		this.finelSelection = finelSelection;
+	}
 
 	public int getCandidateId() {
 		return candidateId;
@@ -131,13 +142,13 @@ public class Candidate {
 		this.confirmationStatus = confirmationStatus;
 	}
 
-	public int getRequestId() {
-		return requestId;
-	}
-
-	public void setRequestId(int requestId) {
-		this.requestId = requestId;
-	}
+//	public int getRequestId() {
+//		return requestId;
+//	}
+//
+//	public void setRequestId(int requestId) {
+//		this.requestId = requestId;
+//	}
 
 	public String getInterviewMeetLink() {
 		return interviewMeetLink;
