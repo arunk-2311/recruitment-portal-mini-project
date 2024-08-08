@@ -27,4 +27,6 @@ public interface JobRequestService {
 	
 	//method that checks if the job request is fulfilled or not
 	JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException;
+	
+	List<JobRequest> fetchAllActiveJobRequestsHR();
 }
