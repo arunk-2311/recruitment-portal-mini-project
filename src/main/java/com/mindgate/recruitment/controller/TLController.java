@@ -21,7 +21,7 @@ import com.mindgate.recruitment.service.EmployeeService;
 import com.mindgate.recruitment.service.JobRequestService;
 
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/api/tl")
 public class TLController {
@@ -31,6 +31,12 @@ public class TLController {
 	
 	@Autowired
 	private JobRequestService jobRequestService;
+	
+	@PutMapping(path = "/updateJobDescription/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> updateJobDescription(@PathVariable("id") int requestId, @RequestBody JobRequest jobRequest) {
+		JobRequest updatedJR = jobRequestService.updateJobRequestDescription(requestId, jobRequest.getDescription());
+	    return ResponseEntity.status(200).body(updatedJR);
+	}
 	
 	//creates a job request
 	@PostMapping(path = "/createJobRequest", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -45,7 +51,7 @@ public class TLController {
 	public ResponseEntity<Object> fetchActiveJobRequests(@PathVariable("id") int tlId){
 		List<JobRequest> allJobRequests = jobRequestService.findByTeamLeaderId(tlId);
 		List<JobRequest> activeJobRequests = allJobRequests.stream()
-					.filter(jobRequest -> jobRequest.getJrLevel() == 0)
+					.filter(jobRequest -> jobRequest.getJrLevel() != 2)
 		            .collect(Collectors.toList());
 		return ResponseEntity.status(200).body(activeJobRequests);
 	}
