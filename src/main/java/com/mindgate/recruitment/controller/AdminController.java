@@ -38,9 +38,14 @@ public class AdminController {
 	public ResponseEntity<List<Candidate>> getAllCandidates(){
 		List<Candidate> candidates = candidateServiceImpl.getAllCandidate();
 		List<Candidate> selectedCandidates = candidates.stream()
-					.filter(candidate -> "y".equals(candidate.getConfirmationStatus()))
+					.filter(candidate -> "y".equals(candidate.getFinalSelection()))
 		            .collect(Collectors.toList());
 		return ResponseEntity.status(200).body(selectedCandidates);
+	}
+	
+	@GetMapping(path="/getAllEmployees")
+	public ResponseEntity<Object> getAllEmployees(){
+		return ResponseEntity.status(200).body(employeeService.fetchAllEmployees());
 	}
 	
 	@DeleteMapping("/delete/{candidateId}")
