@@ -58,11 +58,15 @@ public class HRController {
 	public ResponseEntity<Object> toInterviewer(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusFirst(id, "y"));
 	}
-	
 
 	@PutMapping(path = "/toSelected/{id}")
 	public ResponseEntity<Object> toSelected(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusThird(id, "y"));
+	}
+	
+	@PutMapping(path = "/toSelectedR/{id}")
+	public ResponseEntity<Object> toSelectedR(@PathVariable("id") int id) {
+		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusThird(id, "n"));
 	}
 	
 	@PutMapping(path = "/readyforhire/{id}")
