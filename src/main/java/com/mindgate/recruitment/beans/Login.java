@@ -33,4 +33,17 @@ public class Login {
 	public String getEmail() {
 		return email;
 	}
+	public void setEmployeeId(int employeeId) {
+		this.employeeId = employeeId;
+	}
+	public void setRoleId(int roleId) {
+		this.roleId = roleId;
+	}
+	public void setPhoneNo(long phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	
 }

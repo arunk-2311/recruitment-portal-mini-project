@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mindgate.recruitment.beans.Employee;
 import com.mindgate.recruitment.beans.JobRequest;
 import com.mindgate.recruitment.exceptions.JobFillOverflowException;
 import com.mindgate.recruitment.exceptions.JobRequestInvalidLevelException;
@@ -25,6 +26,15 @@ public class JobRequestServiceImpl implements JobRequestService {
 	@Override
 	public JobRequest store(JobRequest jobRequest) {
 		return jobRequestRepository.save(jobRequest);
+	}
+
+	@Override
+	public JobRequest updateJobRequestDescription(int requestId, String description) {
+		// TODO Auto-generated method stub
+		Optional<JobRequest> optional = jobRequestRepository.findById(requestId);
+		JobRequest jobRequest = optional.get();
+		jobRequest.setDescription(description);
+        return jobRequestRepository.save(jobRequest);
 	}
 
 	@Override

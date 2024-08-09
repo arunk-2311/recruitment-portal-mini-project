@@ -28,6 +28,9 @@ public interface JobRequestService {
 	//method that checks if the job request is fulfilled or not
 	JobRequest closeJobRequest(int requestId) throws JobRequestNotFulFilledException;
 	
+	//method to update the Description column in Job Request
+	JobRequest updateJobRequestDescription(int requestId, String description);
+
 	List<JobRequest> fetchAllActiveJobRequestsHR();
 	
 	JobRequest forceCloseJobRequest(int jrId) throws JobRequestNotFoundException;

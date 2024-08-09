@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mindgate.recruitment.beans.Candidate;
@@ -30,6 +33,7 @@ public class HRController {
 
 	@Autowired
 	private JobRequestService jobRequestService;
+
 
 	@GetMapping(path = "/activeJobRequestsHR")
 	public ResponseEntity<Object> fetchAllActiveJobRequests() {
@@ -53,18 +57,40 @@ public class HRController {
 				.filter(candidates -> (candidates.getFinalSelection() == null)).collect(Collectors.toList());
 		return ResponseEntity.status(200).body(finalCandidatelist);
 	}
-	
+
 	@PutMapping(path = "/toInterviewer/{id}")
 	public ResponseEntity<Object> toInterviewer(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusFirst(id, "y"));
+		
 	}
 	
-
+	@PostMapping(path = "/scheduleTechnicalInterview")
+    public ResponseEntity<Object> scheduleInterview(@RequestParam("interviewMeetLink") String interviewMeetLink,
+            @RequestParam("email") String email) {
+        try {
+            candidateService.sendTechnicalInterviewEmail(interviewMeetLink, email);
+            return ResponseEntity.status(200).body("Email for Technical Interview sent to candidate.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+	
+	@PostMapping(path = "/sendConfirmationMail")
+    public ResponseEntity<Object> sendFinalConfirmationMail(@RequestParam("email") String email) {
+        try {
+            candidateService.sendHRConfirmationEmail(email);
+            return ResponseEntity.status(200).body("Email for Final Selection and documents requested, sent to candidate.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
+    }
+	
+	
 	@PutMapping(path = "/toSelected/{id}")
 	public ResponseEntity<Object> toSelected(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusThird(id, "y"));
 	}
-	
+
 	@PutMapping(path = "/readyforhire/{id}")
 	public ResponseEntity<Object> activateCanddate(@PathVariable("id") int id) {
 		return ResponseEntity.status(200).body(candidateService.updateCandidateStatusFinal(id, "y"));
