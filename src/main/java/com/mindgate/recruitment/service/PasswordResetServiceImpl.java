@@ -67,16 +67,11 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     public void sendOtpToEmail(String email, String otp) {
         SimpleMailMessage message = new SimpleMailMessage();
-        System.out.println("In the sendotp function");
         String from = "anupamsingh1896@gmail.com";
-        System.out.println("Sending from" + from);
-        message.setFrom(from);	
-        System.out.println("Sending to "+email);
+        message.setFrom(from);
         message.setTo(email);
         message.setSubject("Password Reset OTP");
         message.setText("Your OTP for password reset is: " + otp);
-        System.out.println("Sending now");
-        System.out.println("The mailsender is "+mailSender);
         mailSender.send(message);
         System.out.println("Sent");
     }
