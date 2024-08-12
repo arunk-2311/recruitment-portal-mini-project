@@ -6,6 +6,7 @@ DROP VIEW employee_view;
 DROP TABLE employee;
 DROP TABLE role;
 DROP TABLE skill;
+DROP VIEW login_view;
 -------------------------------------------------------------------------------------------------
 -- VIEW COMMANDS --
 SELECT * FROM role;
@@ -284,10 +285,14 @@ DESC candidate;
 CREATE VIEW employee_view AS
 SELECT emp_id,name,role_id,phone_no,email, skill1_id, skill2_id, skill3_id, status
 FROM employee;
-----------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------
 -- Job Request View-----
 CREATE VIEW job_request_view AS
 SELECT request_id,tl_id,created_date, role_id, description, skill1_id, skill2_id, skill3_id, no_of_vacancies, filled, pending, job_req_lvl
 FROM job_request;
-
-
+--------------------------------------------------------------------------------------------------------
+-----login View-----
+CREATE VIEW login_view AS
+SELECT emp_id,password,role_id,phone_no,email
+FROM employee;
+SELECT * FROM login_view;
