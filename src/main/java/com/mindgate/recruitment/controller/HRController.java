@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mindgate.recruitment.beans.Candidate;
 import com.mindgate.recruitment.beans.JobRequest;
 import com.mindgate.recruitment.exceptions.CandidateNotFoundException;
+import com.mindgate.recruitment.exceptions.JobRequestInvalidLevelException;
 import com.mindgate.recruitment.service.CandidateService;
 import com.mindgate.recruitment.service.JobRequestService;
 
@@ -42,16 +43,12 @@ public class HRController {
 
 	@GetMapping(path = "/final")
 	public ResponseEntity<Object> selectedCandidates() throws CandidateNotFoundException {
-		List<Candidate> allCandidates = candidateService.getAllCandidate();
-		List<Candidate> finalCandidatelist = allCandidates.stream()
-				.filter(candidates -> ("y".equals(candidates.getConfirmationStatus())
-						&& (candidates.getFinalSelection() == null)))
-				.collect(Collectors.toList());
+		List<Candidate> finalCandidatelist = candidateService.selectedCandidatesList();
 		return ResponseEntity.status(200).body(finalCandidatelist);
 	}
 
 	@GetMapping(path = "/listOfAllCandidates")
-	public ResponseEntity<Object> listOfAllCandidates() throws CandidateNotFoundException {
+	public ResponseEntity<List<Candidate>> listOfAllCandidates() throws CandidateNotFoundException {
 		List<Candidate> allCandidates = candidateService.getAllCandidate();
 		List<Candidate> finalCandidatelist = allCandidates.stream()
 				.filter(candidates -> (candidates.getFinalSelection() == null)).collect(Collectors.toList());
@@ -103,5 +100,15 @@ public class HRController {
 	@PostMapping(path = "/newcandidate")
 	public ResponseEntity<Object> createNewCandidate(@RequestBody Candidate candidate) {
 		return ResponseEntity.status(200).body(candidateService.saveCandidate(candidate));
+	}
+	
+	@PutMapping(path = "/completeJobRequest/{id}")
+	public ResponseEntity<Object> completeJobRequest(@PathVariable("id") int requestId) {
+		try {
+			JobRequest j = jobRequestService.updateJobRequestLevel(requestId, 2);
+			return ResponseEntity.status(200).body(j);
+		} catch (JobRequestInvalidLevelException e) {
+			return ResponseEntity.status(404).body(e.getMessage());
+		}
 	}
 }
