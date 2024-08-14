@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mindgate.recruitment.beans.Candidate;
+import com.mindgate.recruitment.beans.Employee;
+import com.mindgate.recruitment.exceptions.CandidateNotFoundException;
 
 public interface CandidateService {
 
@@ -27,5 +29,18 @@ public interface CandidateService {
 	void sendHRConfirmationEmail(String email);
 	
 	Candidate updateCandidateStatusThird(int id, String status);
+	
+	List<Candidate> selectedCandidatesList() throws CandidateNotFoundException;
+	
+	List<Candidate> filterAllCandidatesByName(String name);
+	
+	List<Candidate> filterFinalCandidatesSkillId(int skillId) throws CandidateNotFoundException;
+	
+	List<Candidate> filterFinalCandidatesByRoleId(int roleId) throws CandidateNotFoundException;
+	
+	List<Candidate> filterFinalCandidatesByRoleIdAndSkillId(int roleId, int skillId) throws CandidateNotFoundException;
 
+	void meetLinkById(int id,String meetLink);
+	
+	void reset(int id);
 }

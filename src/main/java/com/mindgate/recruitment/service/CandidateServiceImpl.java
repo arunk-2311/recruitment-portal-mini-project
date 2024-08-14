@@ -2,6 +2,7 @@ package com.mindgate.recruitment.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +11,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.mindgate.recruitment.beans.*;
+import com.mindgate.recruitment.exceptions.CandidateNotFoundException;
 import com.mindgate.recruitment.repository.*;
 
 @Service
@@ -45,7 +47,8 @@ public class CandidateServiceImpl implements CandidateService {
 	public Candidate updateCandidateStatusFinal(int id, String status){
 	    Optional<Candidate> optional = candidateRepository.findById(id);
         Candidate candidate = optional.get();
-        candidate.setFinelSelection(status);
+        candidate.setFinalSelection(status);
+//        candidate.setConfirmationStatus(status);
         return candidateRepository.save(candidate);
 	}
 	@Override
@@ -97,6 +100,61 @@ public class CandidateServiceImpl implements CandidateService {
 
 		mailSender.send(message);
 	}
-
 	
+	@Override
+	public List<Candidate> selectedCandidatesList() throws CandidateNotFoundException {
+		List<Candidate> allCandidates = this.getAllCandidate();
+		List<Candidate> finalCandidatelist = allCandidates.stream()
+				.filter(candidates -> ("y".equals(candidates.getConfirmationStatus())
+						&& (candidates.getFinalSelection() == null)))
+				.collect(Collectors.toList());
+	return finalCandidatelist;
+	}
+	
+	@Override
+	public List<Candidate> filterAllCandidatesByName(String name) {
+		List<Candidate> allCandidates = this.getAllCandidate();
+		List<Candidate> filteredCandidates = allCandidates.stream().filter(cand->cand.searchMatchForNameCan(name)).collect(Collectors.toList());
+		return filteredCandidates;
+	}
+
+	@Override
+	public List<Candidate> filterFinalCandidatesSkillId(int skillId) throws CandidateNotFoundException {
+		List<Candidate> finalCandidates = this.selectedCandidatesList();
+		List<Candidate> filteredCandidates = finalCandidates.stream().filter(cand->(cand.getSkill1Id()== skillId)||(cand.getSkill2Id()== skillId)||(cand.getSkill3Id()== skillId)).collect(Collectors.toList());
+		return filteredCandidates;
+	}
+
+	@Override
+	public List<Candidate> filterFinalCandidatesByRoleId(int roleId) throws CandidateNotFoundException {
+		List<Candidate> finalCandidates = this.selectedCandidatesList();
+		List<Candidate> filteredCandidates = finalCandidates.stream().filter(cand->(cand.getRoleId()== roleId)).collect(Collectors.toList());
+		return filteredCandidates;
+	}
+
+	@Override
+	public List<Candidate> filterFinalCandidatesByRoleIdAndSkillId(int roleId, int skillId) throws CandidateNotFoundException {
+		List<Candidate> skillFilteredCandidates=this.filterFinalCandidatesSkillId(skillId);
+		List<Candidate> filteredEmployees=skillFilteredCandidates.stream().filter(cand->cand.getRoleId()==roleId).collect(Collectors.toList());
+		return filteredEmployees;
+	}
+	
+	@Override
+	public void meetLinkById(int id,String meetLink) {
+		Optional<Candidate> findCandidate=candidateRepository.findById(id);
+		Candidate result=findCandidate.get();
+		result.setInterviewMeetLink(meetLink);
+		candidateRepository.save(result);
+	}
+	
+	@Override
+	public void reset(int id) {
+		Optional<Candidate> findCandidate=candidateRepository.findById(id);
+		Candidate result=findCandidate.get();
+		result.setAssessmentStatus(null);
+		result.setConfirmationStatus(null);
+		result.setFinalSelection(null);
+		result.setSelectedForInterview(null);
+		candidateRepository.save(result);
+	}
 }
